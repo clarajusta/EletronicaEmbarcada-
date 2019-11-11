@@ -13,6 +13,9 @@ Com o intuito de abordar o conteúdo trabalhado na disciplina Eletrônica Embarc
   
   O código Energia apresenta o código montado para teste do protótipo, onde ocorre a integração do LDR com o servo, mas escrito na linguagem C++. 
 
+ O codigo led mostra como faz pra piscar o led misturando C com assembly, que sera usado para criar uma subrotina no projeto. 
+ 
+ 
 # Trello
 Trello do desenvolvimento do projeto: 
 https://trello.com/b/fTmhEB03/eletr%C3%B4nica-embarcada
