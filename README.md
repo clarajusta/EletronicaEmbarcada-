@@ -15,6 +15,7 @@ Com o intuito de abordar o conteúdo trabalhado na disciplina Eletrônica Embarc
 
  O codigo led mostra como faz pra piscar o led misturando C com assembly, que sera usado para criar uma subrotina no projeto. 
  
+ O codigo integração apresenta a primeira integração dos LDRs com os servos, feito no code composer para MSP430.
  
 # Trello
 Trello do desenvolvimento do projeto: 
