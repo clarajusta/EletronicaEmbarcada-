@@ -1,0 +1,41 @@
+
+//Sensor LDR
+//Codigo responsavel por fazer a leitura dos dados dos LDRs de forma simultanea e individual 
+//Printando o valor lido no monitor serial do arduino 
+
+ #define ldr1Pin A0 //LDR no pino analogico 0 
+ #define ldr2Pin A1 //LDR no pino analogico 1 
+ #define ldr3Pin A2 //LDR no pino analogico 2 
+ #define ldr4Pin A3 //LDR no pino analogico 3 
+ 
+int ldr1Valor = 0; //Valor lido do LDR 1
+int ldr2Valor = 0; //Valor lido do LDR 2
+int ldr3Valor = 0; //Valor lido do LDR 3 
+int ldr4Valor = 0; //Valor lido do LDR 4
+ 
+void setup() {
+ Serial.begin(9600); //Inicia a comunicação serial
+}
+ 
+void loop() {
+ ///ler o valor do LDR
+ ldr1Valor = analogRead(ldr1Pin); //O valor lido será entre 0 e 1023
+ ldr2Valor = analogRead(ldr2Pin);
+ ldr3Valor = analogRead(ldr3Pin);
+ ldr4Valor = analogRead(ldr4Pin);
+ 
+ 
+ //imprime o valor lido dos LDRs no monitor serial
+ Serial.print("Dados Coletados");  
+ Serial.println();
+ Serial.print(" Valor lido no LDR1 : ");
+ Serial.println(ldr1Valor);
+ Serial.print(" Valor lido no LDR2 : ");
+ Serial.println(ldr2Valor);
+ Serial.print(" Valor lido no LDR3 : ");
+ Serial.println(ldr3Valor);
+ Serial.print(" Valor lido no LDR4 : ");
+ Serial.println(ldr4Valor);
+ Serial.println();
+ delay(2000);
+}
