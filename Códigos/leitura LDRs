@@ -1,7 +1,8 @@
 
 //Sensor LDR
 //Codigo responsavel por fazer a leitura dos dados dos LDRs de forma simultanea e individual 
-//Printando o valor lido no monitor serial do arduino 
+//Printando o valor lido e a media no monitor serial do arduino 
+//A media foi tirada com o uso de 5 leituras 
 
  #define ldr1Pin A0 //LDR no pino analogico 0 
  #define ldr2Pin A1 //LDR no pino analogico 1 
@@ -12,6 +13,12 @@ int ldr1Valor = 0; //Valor lido do LDR 1
 int ldr2Valor = 0; //Valor lido do LDR 2
 int ldr3Valor = 0; //Valor lido do LDR 3 
 int ldr4Valor = 0; //Valor lido do LDR 4
+
+int count = 0;
+int media_ldr1 = 0;
+int media_ldr2 = 0;
+int media_ldr3 = 0;
+int media_ldr4 = 0;
  
 void setup() {
  Serial.begin(9600); //Inicia a comunicação serial
@@ -37,5 +44,35 @@ void loop() {
  Serial.print(" Valor lido no LDR4 : ");
  Serial.println(ldr4Valor);
  Serial.println();
- delay(2000);
+ delay(1000);
+
+ count = count +1;
+
+ media_ldr1 += ldr1Valor;
+ media_ldr2 += ldr2Valor;
+ media_ldr3 += ldr3Valor;
+ media_ldr4 += ldr4Valor;
+
+  if (count == 5){
+
+ media_ldr1 =  media_ldr1/5;
+ media_ldr2 =  media_ldr2/5;
+ media_ldr3 =  media_ldr3/5;
+ media_ldr4 =  media_ldr4/5;
+
+    Serial.print("Media Coletada Com 5 Leituras");  
+    Serial.println();
+    Serial.print(" Media no LDR1 : ");
+    Serial.println(media_ldr1);
+    Serial.print(" Media no LDR2 : ");
+    Serial.println(media_ldr2);
+    Serial.print(" Media no LDR3 : ");
+    Serial.println(media_ldr3);
+    Serial.print(" Media no LDR4 : ");
+    Serial.println(media_ldr4);
+    Serial.println();
+ 
+      count = 0;
+  }
+ 
 }
