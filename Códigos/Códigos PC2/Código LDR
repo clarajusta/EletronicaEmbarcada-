@@ -1,0 +1,24 @@
+//Validar aquisicao de dados do LDR 
+
+int led = 6; //Led conectado a porta 6
+int ldr_porta = 0; //LDR conectado a porta analogica 8
+int ldr_leitura = 0; //Valor lido do LDR
+ 
+void setup() {
+ pinMode(led,OUTPUT); //define a porta 6 como saída
+ Serial.begin(9600); //Inicia a comunicação serial
+}
+ 
+void loop() {
+ ///leitura do valor do LDR
+ ldr_leitura = analogRead(ldr_leitura); 
+ 
+ //se o valor lido for maior que 800, o led liga
+ if (ldr_leitura>= 800) digitalWrite(led,HIGH);
+ // caso contrario, apaga o led
+ else digitalWrite(led,LOW);
+ 
+ //imprime o valor lido do LDR no monitor serial a cada 100ms
+ Serial.println(ldr_leitura);
+ delay(100);
+}
