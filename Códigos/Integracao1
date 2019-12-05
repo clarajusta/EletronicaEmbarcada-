@@ -1,0 +1,148 @@
+
+//Integrando o codigo leitura ldr e o posicoes inclinacao 
+//Esse condigo serve para captar o valor da leitura do LDR em varias posicoes distintas, buscando a modelagem do componente, relacionando angulo do servo motor e valor lido no LDR
+//Foi posicionada uma lanterna em um ponto e colocou o dispositivo para percorrer todo o trajeto com a luz incidindo sempre no mesmo e foi feita a aquisicao da dados do ldr
+
+#include <Servo.h>
+ 
+//#define SERVO 6 // Porta Digital 6 PWM
+
+Servo meuservo; // Variável Servo
+int angulo; // Ajusta o ângulo inicial do Servo 
+ #define ldr1Pin A0 //LDR no pino analogico 0 
+ #define ldr2Pin A1 //LDR no pino analogico 1 
+ #define ldr3Pin A2 //LDR no pino analogico 2 
+ #define ldr4Pin A3 //LDR no pino analogico 3 
+ 
+int ldr1Valor = 0; //Valor lido do LDR 1
+int ldr2Valor = 0; //Valor lido do LDR 2
+int ldr3Valor = 0; //Valor lido do LDR 3 
+int ldr4Valor = 0; //Valor lido do LDR 4
+
+int leitura1 = 0;
+int leitura2 = 0;
+
+int count = 0;
+
+int media_ldr1 = 0;
+int media_ldr2 = 0;
+int media_ldr3 = 0;
+int media_ldr4 = 0;
+
+ 
+void setup() {
+ Serial.begin(9600); //Inicia a comunicação serial
+ meuservo.attach(9); // Declara o pino do servo
+ //s.attach(SERVO);
+ //s.write(47); // Inicia motor posição 47 graus
+}
+ 
+void loop() {
+
+//INCREMENTAR SERVO
+    for (angulo = 47; angulo < 174; angulo += 1) // Comando que muda a posição do servo de 180 para 0° 
+      { 
+        //Posicionando servo:
+        meuservo.write(angulo); // Comando para angulo específico
+        Serial.print("Posicao Servo: ");  
+        Serial.println();
+        Serial.println(angulo);
+        delay(10000);
+        
+        for (leitura1 = 0; leitura1<5; leitura1 += 1)
+            {
+            
+            //Lendo LDR
+              ldr1Valor = analogRead(ldr1Pin); //O valor lido será entre 0 e 1023
+              ldr2Valor = analogRead(ldr2Pin);
+              ldr3Valor = analogRead(ldr3Pin);
+              ldr4Valor = analogRead(ldr4Pin);
+            
+            //Incrementando valor lido da media
+              media_ldr1 += ldr1Valor;
+              media_ldr2 += ldr2Valor;
+              media_ldr3 += ldr3Valor;
+              media_ldr4 += ldr4Valor;
+
+              count +=1;
+
+              if (count == 5){
+              
+              //Tirando a media
+                 media_ldr1 =  media_ldr1/5;
+                 media_ldr2 =  media_ldr2/5;
+                 media_ldr3 =  media_ldr3/5;
+                 media_ldr4 =  media_ldr4/5;
+                
+                    Serial.print("Media Coletada Com 5 Leituras");  
+                    Serial.println();
+                    Serial.print(" Media no LDR1 : ");
+                    Serial.println(media_ldr1);
+                    Serial.print(" Media no LDR2 : ");
+                    Serial.println(media_ldr2);
+                    Serial.print(" Media no LDR3 : ");
+                    Serial.println(media_ldr3);
+                    Serial.print(" Media no LDR4 : ");
+                    Serial.println(media_ldr4);
+                    Serial.println();
+                 
+                      count = 0;
+
+              }
+            }
+      }
+
+      //DECREMENTAR SERVO
+
+          for (angulo = 174; angulo >= 47; angulo -= 1)
+                          { 
+        //Posicionando servo:
+        meuservo.write(angulo); // Comando para angulo específico
+        Serial.print("Posicao Servo: ");  
+        Serial.println();
+        Serial.println(angulo);
+        delay(10000);
+        
+        for (leitura2 = 0; leitura2<5; leitura2 += 1)
+            {
+            
+            //Lendo LDR
+              ldr1Valor = analogRead(ldr1Pin); //O valor lido será entre 0 e 1023
+              ldr2Valor = analogRead(ldr2Pin);
+              ldr3Valor = analogRead(ldr3Pin);
+              ldr4Valor = analogRead(ldr4Pin);
+            
+            //Incrementando valor lido da media
+              media_ldr1 += ldr1Valor;
+              media_ldr2 += ldr2Valor;
+              media_ldr3 += ldr3Valor;
+              media_ldr4 += ldr4Valor;
+
+              count +=1;
+
+              if (count == 5){
+              
+              //Tirando a media
+                 media_ldr1 =  media_ldr1/5;
+                 media_ldr2 =  media_ldr2/5;
+                 media_ldr3 =  media_ldr3/5;
+                 media_ldr4 =  media_ldr4/5;
+                
+                    Serial.print("Media Coletada Com 5 Leituras");  
+                    Serial.println();
+                    Serial.print(" Media no LDR1 : ");
+                    Serial.println(media_ldr1);
+                    Serial.print(" Media no LDR2 : ");
+                    Serial.println(media_ldr2);
+                    Serial.print(" Media no LDR3 : ");
+                    Serial.println(media_ldr3);
+                    Serial.print(" Media no LDR4 : ");
+                    Serial.println(media_ldr4);
+                    Serial.println();
+                 
+                      count = 0;
+
+              }
+            }
+          }
+        }
