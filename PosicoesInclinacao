@@ -1,0 +1,39 @@
+// Código exemplo para teste de Micro Servo Motor SG90 
+// Movimento do servo através de comandos especificados
+// Codigo usado para determinar a posicao limite do movimento do servo de acordo com a trajetoria projetada e com o componente posicionada na estrutura 
+// O microcontrolador le a posicao do servo inicial para as especificacoes do projeto como 47 graus e a final como 174 graus
+//A trajetoria estipula delimita o requisito estabelecido pela dupla da inclinicao ser limitada em 40 graus para esquerda e 40 para direita no seu trajeto  
+//Sendo capaz de transitar entre 127 posicoes de inclinacao 
+ 
+#include "Servo.h" // Inclui a Biblioteca Servo.h 
+ 
+Servo meuservo; // Cria o objeto servo para programação 
+int angulo = 0; // Ajusta o ângulo inicial do Servo 
+ 
+void setup() {
+meuservo.attach(9); // Declara o pino do servo
+ Serial.begin(9600); //Inicia a comunicação serial
+}
+ 
+void loop() { 
+  
+for (angulo = 0; angulo < 180; angulo += 1) { // Comando que muda a posição do servo de 0 para 180°
+meuservo.write(angulo); // Comando para angulo específico
+ Serial.print("Posicao Servo: ");  
+   Serial.println();
+   Serial.println(angulo);
+delay(10000); 
+}
+ 
+delay(2000); // Tempo de espera para próximo movimento
+for (angulo = 180; angulo >= 1; angulo -= 1) { // Comando que muda a posição do servo de 180 para 0°
+meuservo.write(angulo); // Comando para angulo específico
+ Serial.print("Posicao Servo: ");  
+   Serial.println();
+   Serial.println(angulo);
+delay(10000);
+}
+ 
+delay(10000); // Tempo de espera para próximo movimento
+}
+  
